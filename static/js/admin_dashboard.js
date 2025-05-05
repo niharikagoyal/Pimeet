@@ -47,6 +47,7 @@ function showLiveSubsection(subsection) {
     document.getElementById('live-ongoing').style.display = 'none';
     document.getElementById('live-past').style.display = 'none';
     
+    
     // Show the selected subsection
     document.getElementById('live-' + subsection).style.display = 'block';
     
@@ -151,7 +152,8 @@ function showSection(sectionId) {
             section.classList.add('hidden');
         }
     });
-
+    sidebar.classList.toggle('closed');
+    content.classList.toggle('shifted');
     const target = document.getElementById(sectionId);
     if (target) {
         target.classList.remove('hidden');

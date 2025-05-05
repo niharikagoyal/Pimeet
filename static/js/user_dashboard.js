@@ -45,7 +45,10 @@ function showSection(sectionId) {
     const sections = document.querySelectorAll('.content > div');
     sections.forEach(section => section.classList.add('hidden'));
     document.getElementById(sectionId).classList.remove('hidden');
+    sidebar.classList.toggle('closed');
+    content.classList.toggle('shifted');
 }
+
 
 document.getElementById("profileToggle").onclick = function () {
     document.getElementById("profileModal").style.display = "block";

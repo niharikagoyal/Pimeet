@@ -19,7 +19,9 @@ body {
     flex-direction: column;
     gap: 15px;
 }
-
+.navigation-meetings{
+    z-index: -1;
+}
 .live-card {
     border-radius: 10px;
     overflow: hidden;

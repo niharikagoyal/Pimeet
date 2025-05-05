@@ -22,6 +22,8 @@ function showSection(sectionId) {
     const sections = document.querySelectorAll('.content > div');
     sections.forEach(section => section.classList.add('hidden'));
     document.getElementById(sectionId)?.classList.remove('hidden');
+    document.getElementById('sidebar').classList.toggle('closed');
+    document.getElementById('content').classList.toggle('shifted');
 }
 
 // Sidebar submenu toggle
