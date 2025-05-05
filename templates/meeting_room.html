@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Meeting</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/meeting_room.css') }}">
+
+</head>
+
+<body class="modern-theme">
+    <div id="root"></div>
+    <div class="back-to-dashboard">
+        {% if session.get('user_type') == 'admin' %}
+        <a href="{{ url_for('admin_dashboard') }}" style="text-decoration: none;">
+            <button>
+                <i class="bi bi-arrow-left"></i>
+                Back to Admin Dashboard
+            </button>
+        </a>
+        {% elif session.get('user_type') == 'trainer' %}
+        <a href="{{ url_for('trainer_dashboard') }}" style="text-decoration: none;">
+            <button>
+                <i class="bi bi-arrow-left"></i>
+                Back to Trainer Dashboard
+            </button>
+        </a>
+        {% else %}
+        <a href="{{ url_for('user_dashboard') }}" style="text-decoration: none;">
+            <button>
+                <i class="bi bi-arrow-left"></i>
+                Back to User Dashboard
+            </button>
+        </a>
+        {% endif %}
+  
+<!-- Toggle Button -->
+<div style="text-align: center; margin-top: 20px;">
+    <button onclick="toggleCompiler()" class="symbol-button">
+        <i class="bi bi-code-square"></i>
+    </button>
+</div>
+
+
+<!-- Compiler Section (Initially Hidden) -->
+<div id="compiler-wrapper" class="compiler-section" style="display: none; margin: 20px; padding: 20px; background-color: #1e1e2f; border-radius: 10px; color: white;">
+    <h3>Online Compiler</h3>
+    <select id="language" class="form-select mb-2" style="width: 200px;">
+        <option value="71">Python</option>
+        <option value="54">C++</option>
+        <option value="62">Java</option>
+        <option value="63">JavaScript</option>
+    </select>
+
+    <textarea id="codeEditor" rows="10" style="width: 100%; padding: 10px; font-family: monospace; border-radius: 5px;">print("Hello, World!")</textarea>
+
+    <br><button onclick="compileCode()" class="btn btn-primary mt-2">Run</button>
+
+    <pre id="output" style="background-color: #000; color: #0f0; padding: 10px; margin-top: 10px; border-radius: 5px;">Output will appear here...</pre>
+</div>
+
+</body>
+
+<script src="https://unpkg.com/@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>
+<script src="{{url_for('static', filename='js/meeting_room.js')}}"></script>
+
+</html>

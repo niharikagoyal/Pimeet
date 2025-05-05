@@ -1,0 +1,503 @@
+/* General Styles */
+body {
+    background-color: #000000; /* Default black background */
+    font-family: 'Poppins', sans-serif;
+    color: #a9a9a9; /* Dark gray text */
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+.disabled-link {
+    pointer-events: none;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Live Sessions Styles */
+.live-sessions-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.live-card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.live-card .card-header {
+    padding: 15px;
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.live-card .card-body {
+    padding: 20px;
+}
+
+.expand-btn {
+    min-width: 80px;
+}
+
+.meeting-details p {
+    margin-bottom: 8px;
+}
+
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1055;
+}
+
+.toast-message {
+    background-color: #28a745;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    margin-bottom: 10px;
+    animation: fadeInOut 4s ease-in-out forwards;
+    min-width: 250px;
+}
+
+.toast-message.error {
+    background-color: #dc3545;
+}
+
+.toast-message.warning {
+    background-color: #ffc107;
+    color: #000;
+}
+
+@keyframes fadeInOut {
+    0%   { opacity: 0; transform: translateY(-10px); }
+    10%  { opacity: 1; transform: translateY(0); }
+    90%  { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
+}
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #1a1a1a; /* Dark gray sidebar */
+    padding-top: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition for open/close and light mode */
+}
+
+.sidebar.closed {
+    transform: translateX(-100%); /* Hide sidebar */
+}
+
+.sidebar h2 {
+    color: #ffffff; /* White text for sidebar heading */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 20px;
+    color: #a9a9a9; /* Dark gray links */
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #333333; /* Darker gray hover effect */
+    color: #ffffff; /* White text on hover */
+}
+
+/* Content Styles */
+.content {
+    margin-left: 260px;
+    padding: 20px;
+    transition: margin-left 0.3s ease; /* Smooth transition for content shift */
+}
+
+.content.shifted {
+    margin-left: 0; /* Shift content when sidebar is closed */
+}
+
+/* Sidebar Toggle Button Styles */
+.sidebar-toggle {
+    position: fixed;
+    top: 15px;
+    left: 20px;
+    z-index: 999;
+    background: none;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 24px; /* Icon size */
+    color: #4a4a4a; /* Dark gray color for dark theme */
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+    color: #333333; /* Slightly darker gray on hover */
+}
+/* Table Container Styles */
+.table-container {
+    background: #1a1a1a; /* Dark gray table background */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: background-color 0.3s ease; /* Smooth transition for light mode */
+}
+
+.table th {
+    background-color: #333333; /* Darker gray for table headers */
+    color: #ffffff; /* White text for headers */
+    vertical-align: middle;
+}
+
+.table td {
+    background-color: #1a1a1a; /* Dark gray for table cells */
+    color: #a9a9a9; /* Dark gray text for cells */
+}
+
+/* Badge Styles */
+.badge-success {
+    background-color: #28a745; /* Green for success */
+    color: #ffffff;
+}
+
+.badge-warning {
+    background-color: #ffc107; /* Yellow for warning */
+    color: #000000;
+}
+
+/* Hidden Section */
+.hidden {
+    display: none;
+}
+
+/* Theme Toggle Button Styles */
+.toggle-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.toggle-container label {
+    cursor: pointer;
+}
+
+/* Light Mode Styles */
+/* Light Mode Styles */
+.light-mode {
+    background-color: #ffffff; /* White background for light mode */
+    color: #173447; /* Dark Blue text for light mode */
+}
+
+/* Sidebar Styles for Light Mode */
+.light-mode .sidebar {
+    background-color: #cce5ff; /* Pastel Bright Blue sidebar background */
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow for depth */
+}
+
+.light-mode .sidebar h2 {
+    color: #173447; /* Dark Blue text for sidebar heading */
+}
+
+.light-mode .sidebar a {
+    color: #173447; /* Dark Blue links */
+}
+
+.light-mode .sidebar a:hover {
+    background-color: #99c2ff; /* Pastel Blue hover effect */
+    color: #ffffff; /* White text on hover */
+}
+
+/* Content Styles for Light Mode */
+.light-mode .content {
+    color: #173447; /* Dark Blue text for content */
+}
+
+/* Table Styles for Light Mode */
+.light-mode .table-container {
+    background-color: #ffffff; /* White card background */
+    border: 1px solid #cce5ff; /* Pastel Bright Blue border */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.light-mode .table th {
+    background-color: #cce5ff; /* Pastel Bright Blue for table headers */
+    color: #173447; /* Dark Blue text for headers */
+}
+
+.light-mode .table td {
+    background-color: #ffffff; /* White for table cells */
+    color: #173447; /* Dark Blue text for cells */
+}
+
+/* Sidebar Toggle Button Styles for Light Mode */
+.light-mode .sidebar-toggle {
+    color: #173447; /* Dark Blue color for toggle */
+}
+
+.light-mode .sidebar-toggle:hover {
+    color: #99c2ff; /* Pastel Blue on hover */
+}
+
+/* Theme Toggle Button Styles for Light Mode */
+.light-mode .theme-toggle {
+    color: #ff8000; /* Orange color for toggle */
+}
+
+.light-mode .theme-toggle:hover {
+    color: #99c2ff; /* Pastel Blue on hover */
+}
+
+/* Badge Styles for Light Mode */
+.light-mode .badge-success {
+    background-color: #cce5ff; /* Pastel Bright Blue for success */
+    color: #173447; /* Dark Blue text */
+}
+
+.light-mode .badge-warning {
+    background-color: #ffd1a3; /* Pastel Orange for warning */
+    color: #173447; /* Dark Blue text */
+}
+
+/* Button Styles for Light Mode */
+.light-mode button {
+    background-color: #cce5ff; /* Pastel Bright Blue button background */
+    color: #173447; /* Dark Blue text */
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.light-mode button:hover {
+    background-color: #99c2ff; /* Pastel Blue hover effect */
+    color: #ffffff; /* White text */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+/* Input Fields for Light Mode */
+.light-mode input,
+.light-mode textarea {
+    background-color: #ffffff; /* White background */
+    color: #173447; /* Dark Blue text */
+    border: 1px solid #cce5ff; /* Pastel Bright Blue border */
+    padding: 10px;
+    border-radius: 5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.light-mode input:focus,
+.light-mode textarea:focus {
+    border-color: #99c2ff; /* Pastel Blue border on focus */
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Stronger shadow on focus */
+}
+.theme-toggle {
+    position: fixed;
+    top: 15px;
+    right: 60px; /* Adjusted to prevent overlap with profile */
+    z-index: 1000;
+    font-size: 24px; /* Icon size */
+    color: #4a4a4a; /* Dark gray color for dark theme */
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.theme-toggle:hover {
+    color: #333333; /* Slightly darker gray on hover */
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--navbar-bg);
+    color: var(--navbar-text);
+    position: relative;
+  }
+  .navbar-right {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+   
+}
+.theme-toggle {
+    margin-top: 8px;
+    margin-right: 20px; 
+}
+.profile-toggle{
+    margin-top: 4px;
+}
+.theme-toggle,
+.profile-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #444;
+}
+
+.theme-toggle:hover,
+.profile-toggle:hover {
+    color: #007bff;
+}
+
+/* Modal Styles (Dark Mode Default) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #1a1a1a;
+    color: #a9a9a9;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="file"] {
+    padding: 8px;
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 6px;
+    color: #ffffff;
+}
+
+.save-btn {
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.save-btn:hover {
+    background-color: #218838;
+}
+
+/* Profile Image Preview */
+#profileImagePreview {
+    display: block;
+    margin-top: 10px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #007bff;
+}
+
+/* Light Mode Modal Overrides */
+.light-mode .modal-content {
+    background-color: #ffffff;
+    color: #173447;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.light-mode .close {
+    color: #173447;
+}
+
+.light-mode .form-group label {
+    color: #173447;
+}
+
+.light-mode .form-group input[type="text"],
+.light-mode .form-group input[type="email"],
+.light-mode .form-group input[type="file"] {
+    background-color: #ffffff;
+    color: #173447;
+    border: 1px solid #cce5ff;
+}
+
+.light-mode .save-btn {
+    background-color: #cce5ff;
+    color: #173447;
+}
+
+.light-mode .save-btn:hover {
+    background-color: #99c2ff;
+    color: #ffffff;
+}
+/* Profile Avatar Styling */
+.profile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Makes it round */
+    object-fit: cover;
+    border: 2px solid #007bff;
+}
+
+/* Ensure Profile Button is Positioned at Top Right */
+.profile-button {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    z-index: 1001; /* Higher than theme toggle */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+#assignTrainerForm {
+    background-color: #f8f9fa;
+    border-left: 5px solid #0d6efd;
+    border-radius: 10px;
+}
+
+#assignTrainerForm h4 {
+    color: #0d6efd;
+}
+
+#assignTrainerForm .form-label {
+    font-weight: bold;
+}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Join Meeting{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mt-5">Join Meeting</h1>
+    <form method="GET" action="{{ url_for('join_meeting') }}" class="mt-4">
+    <div class="form-group">
+        <input type="text" placeholder="Meeting ID" class="form-control" id="meeting_id" name="meeting_id" required>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Join</button>
+</form>
+</div>
+{% endblock %}
