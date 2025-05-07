@@ -30,34 +30,40 @@ def get_meet():
     rows = cursor.fetchall()
 
     for row in rows:
-        # Convert meeting time to datetime object
-        meeting_dt = datetime.strptime(f"{row['date']} {row['time']}", "%Y-%m-%d %H:%M")
-        end_time = meeting_dt + timedelta(hours=1)
+        try:
+            # Convert meeting time to datetime object
+            meeting_dt = datetime.strptime(f"{row['date']} {row['time']}", "%Y-%m-%d %H:%M")
+            end_time = meeting_dt + timedelta(hours=1)
 
-        item = {
-            'id': row['meeting_id'],
-            'title': row['title'],
-            'date': row['date'],
-            'time': row['time'],
-            'description': row['description'],
-            'trainer_name': row['trainer_name'],
-            'status': 'Scheduled'
-        }
+            item = {
+                'id': row['meeting_id'],
+                'title': row['title'],
+                'date': row['date'],
+                'time': row['time'],
+                'description': row['description'],
+                'trainer_name': row['trainer_name'],
+                'status': 'Scheduled'
+            }
 
-        if end_time < now:
-            item['status'] = 'Completed'
-            previous.append(item)
-        elif meeting_dt <= now < end_time:
-            item['status'] = 'Ongoing'
-            current.append(item)
-        else:
-            item['status'] = 'Scheduled'
-            upcoming.append(item)
+            # Compare with current time to determine status
+            if now >= end_time:
+                item['status'] = 'Completed'
+                previous.append(item)
+            elif now >= meeting_dt and now < end_time:
+                item['status'] = 'Ongoing'
+                current.append(item)
+            elif now < meeting_dt:
+                item['status'] = 'Scheduled'
+                upcoming.append(item)
+        except ValueError as e:
+            print(f"Error processing meeting {row['meeting_id']}: {e}")
+            continue
 
     conn.close()
 
     # Sort meetings by date and time
     previous.sort(key=lambda x: datetime.strptime(f"{x['date']} {x['time']}", "%Y-%m-%d %H:%M"), reverse=True)
+    current.sort(key=lambda x: datetime.strptime(f"{x['date']} {x['time']}", "%Y-%m-%d %H:%M"))
     upcoming.sort(key=lambda x: datetime.strptime(f"{x['date']} {x['time']}", "%Y-%m-%d %H:%M"))
 
     return {
