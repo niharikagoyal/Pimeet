@@ -1,12 +1,15 @@
 import datetime
 import sqlite3
+import pytz
 from db import get_db_connection
 from datetime import datetime, timedelta
 from flask import jsonify, redirect, render_template, request, flash, session, url_for
 from datetime import timezone
 
 def get_meet():
-    now = datetime.now()  # Get current local time
+    # Use India timezone
+    india_tz = pytz.timezone('Asia/Kolkata')
+    now = datetime.now(india_tz)
     previous, current, upcoming = [], [], []
     trainer_id = session.get('trainer_id')
 
@@ -31,8 +34,9 @@ def get_meet():
 
     for row in rows:
         try:
-            # Convert meeting time to datetime object
-            meeting_dt = datetime.strptime(f"{row['date']} {row['time']}", "%Y-%m-%d %H:%M")
+            # Convert meeting time to datetime object with India timezone
+            meeting_dt_naive = datetime.strptime(f"{row['date']} {row['time']}", "%Y-%m-%d %H:%M")
+            meeting_dt = india_tz.localize(meeting_dt_naive)
             end_time = meeting_dt + timedelta(hours=1)
 
             item = {
@@ -52,7 +56,7 @@ def get_meet():
             elif now >= meeting_dt and now < end_time:
                 item['status'] = 'Ongoing'
                 current.append(item)
-            elif now < meeting_dt:
+            else:
                 item['status'] = 'Scheduled'
                 upcoming.append(item)
         except ValueError as e:
