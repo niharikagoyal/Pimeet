@@ -138,27 +138,27 @@
                               <div class="d-flex flex-nowrap gap-1 ">
                                 <button class="btn btn-primary btn-sm"
                                   onclick="openEditModal('{{ meeting.id }}', '{{ meeting.title }}', '{{ meeting.date }}', '{{ meeting.time }}', '{{ meeting.description }}')"
-                                  {% if meeting.status == 'Completed' %}disabled{% endif %}>
+                                  {% if meeting in meetings.previous %}disabled{% endif %}>
                                   Edit
                                 </button>
                             
                                 <button class="btn btn-danger btn-sm"
                                   onclick="confirmCancel('{{ meeting.id }}')"
-                                  {% if meeting.status == 'Completed' %}disabled{% endif %}>
+                                  {% if meeting in meetings.previous %}disabled{% endif %}>
                                   Cancel
                                 </button>
                             
-                            <button 
-    onclick="window.location.href='{{ url_for('meeting_room', meeting_id=meeting.id) }}'"
-    class="{% if meeting.status == 'Completed' %}disabled disabled-link{% endif %}">
-    Start
-</button>
+                                <button class="btn btn-success btn-sm"
+                                    onclick="window.location.href='{{ url_for('meeting_room', meeting_id=meeting.id) }}'"
+                                    {% if meeting not in meetings.current %}disabled{% endif %}>
+                                    Start
+                                </button>
 
-                                <button 
-    onclick="window.location.href='{{ url_for('meeting_room', meeting_id=meeting.id) }}'" 
-    class="btn btn-info btn-sm {% if meeting.status == 'Completed' %}disabled disabled-link{% endif %}">
-    Join
-</button>
+                                <button class="btn btn-info btn-sm"
+                                    onclick="window.location.href='{{ url_for('meeting_room', meeting_id=meeting.id) }}'"
+                                    {% if meeting not in meetings.current %}disabled{% endif %}>
+                                    Join
+                                </button>
                               </div>
                             </td>
                             
@@ -176,9 +176,9 @@
 
     <!-- Navigation Buttons for Subsections -->
     <div class="btn-group mb-4 d-flex justify-content-center navigation-meetings" role="group">
-        <button class="btn btn-outline-primary" onclick="showLiveSubsection('upcoming')">Upcoming</button>
-        <button class="btn btn-outline-primary" onclick="showLiveSubsection('ongoing')">Ongoing</button>
-        <button class="btn btn-outline-primary" onclick="showLiveSubsection('past')">Past</button>
+        <button class="btn btn-outline-primary" data-section="upcoming" onclick="showLiveSubsection('upcoming')">Upcoming</button>
+        <button class="btn btn-outline-primary" data-section="ongoing" onclick="showLiveSubsection('ongoing')">Ongoing</button>
+        <button class="btn btn-outline-primary" data-section="past" onclick="showLiveSubsection('past')">Past</button>
     </div>
 
     <!-- Live Subsections -->

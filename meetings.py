@@ -6,32 +6,32 @@ from flask import jsonify, redirect, render_template, request, flash, session, u
 from datetime import timezone
 
 def get_meet():
-    now = datetime.now(timezone.utc)  # Get the current UTC time
+    now = datetime.now()  # Get current local time
     previous, current, upcoming = [], [], []
     trainer_id = session.get('trainer_id')
 
     conn = get_db_connection()
     cursor = conn.cursor()
 
+    # Build the base query
+    query = """
+        SELECT m.id as meeting_id, m.title, m.date, m.time, m.description, t.name as trainer_name 
+        FROM meetings m 
+        LEFT JOIN trainers t ON m.trainer_id = t.trainer_id
+    """
+    
+    # Add WHERE clause for trainer-specific meetings
     if trainer_id:
-        cursor.execute("""
-            SELECT m.id as meeting_id, m.title, m.date, m.time, m.description, t.name as trainer_name 
-FROM meetings m 
-LEFT JOIN trainers t ON m.trainer_id = t.trainer_id 
-        """)
+        query += " WHERE m.trainer_id = ? "
+        cursor.execute(query, (trainer_id,))
     else:
-        cursor.execute("""
-            SELECT m.id as meeting_id, m.title, m.date, m.time, m.description, t.name as trainer_name 
-            FROM meetings m 
-            LEFT JOIN trainers t ON m.trainer_id = t.trainer_id
-        """)
+        cursor.execute(query)
 
     rows = cursor.fetchall()
 
     for row in rows:
-        # Convert meeting time to UTC for consistent comparison
+        # Convert meeting time to datetime object
         meeting_dt = datetime.strptime(f"{row['date']} {row['time']}", "%Y-%m-%d %H:%M")
-        meeting_dt = meeting_dt.astimezone(timezone.utc)
         end_time = meeting_dt + timedelta(hours=1)
 
         item = {
@@ -40,23 +40,31 @@ LEFT JOIN trainers t ON m.trainer_id = t.trainer_id
             'date': row['date'],
             'time': row['time'],
             'description': row['description'],
-            'trainer_name': row['trainer_name']
+            'trainer_name': row['trainer_name'],
+            'status': 'Scheduled'
         }
 
         if end_time < now:
+            item['status'] = 'Completed'
             previous.append(item)
         elif meeting_dt <= now < end_time:
+            item['status'] = 'Ongoing'
             current.append(item)
         else:
+            item['status'] = 'Scheduled'
             upcoming.append(item)
 
     conn.close()
 
+    # Sort meetings by date and time
+    previous.sort(key=lambda x: datetime.strptime(f"{x['date']} {x['time']}", "%Y-%m-%d %H:%M"), reverse=True)
+    upcoming.sort(key=lambda x: datetime.strptime(f"{x['date']} {x['time']}", "%Y-%m-%d %H:%M"))
+
     return {
-    'previous': previous,
-    'current': current,
-    'upcoming': upcoming
-}
+        'previous': previous,
+        'current': current,
+        'upcoming': upcoming
+    }
 
 def create_meet():
     title = request.form.get('meetingTitle')

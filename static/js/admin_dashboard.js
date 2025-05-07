@@ -42,29 +42,34 @@ sidebarToggle.addEventListener('click', () => {
 
 // Function to show live session subsections
 function showLiveSubsection(subsection) {
-    // Hide all subsections
-    document.getElementById('live-upcoming').style.display = 'none';
-    document.getElementById('live-ongoing').style.display = 'none';
-    document.getElementById('live-past').style.display = 'none';
-    
-    
+    // Hide all subsections first
+    const subsections = ['upcoming', 'ongoing', 'past'];
+    subsections.forEach(section => {
+        const element = document.getElementById('live-' + section);
+        if (element) {
+            element.style.display = 'none';
+        }
+    });
+
     // Show the selected subsection
-    document.getElementById('live-' + subsection).style.display = 'block';
-    
-    // Update active button
-    const buttons = document.querySelectorAll('.btn-group .btn');
+    const selectedSection = document.getElementById('live-' + subsection);
+    if (selectedSection) {
+        selectedSection.style.display = 'block';
+    }
+
+    // Update button states
+    const buttons = document.querySelectorAll('.navigation-meetings .btn');
     buttons.forEach(btn => {
+        // Reset all buttons to outline style
         btn.classList.remove('btn-primary');
         btn.classList.add('btn-outline-primary');
+
+        // If this is the active button, update its style
+        if (btn.getAttribute('data-section') === subsection) {
+            btn.classList.remove('btn-outline-primary');
+            btn.classList.add('btn-primary');
+        }
     });
-    
-    // Find the clicked button and make it active
-    const activeButton = Array.from(buttons).find(btn => 
-        btn.textContent.toLowerCase().includes(subsection));
-    if (activeButton) {
-        activeButton.classList.remove('btn-outline-primary');
-        activeButton.classList.add('btn-primary');
-    }
 }
 
 // Function to toggle card expansion
@@ -143,6 +148,18 @@ function toggleTrainerForm() {
     const form = document.getElementById('assignTrainerForm');
     form.style.display = (form.style.display === 'none') ? 'block' : 'none';
 }
+// Remove the duplicate showSection function at the bottom
+
+// Add event listeners for live session buttons
+document.addEventListener('DOMContentLoaded', function() {
+    const liveButtons = document.querySelectorAll('.navigation-meetings .btn');
+    liveButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const section = this.getAttribute('data-section');
+            showLiveSubsection(section);
+        });
+    });
+});
 function showSection(sectionId) {
     const sections = ['meetings', 'trainers', 'live-sessions']; // <-- Add 'live-sessions' here
 
