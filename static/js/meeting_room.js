@@ -94,7 +94,7 @@ window.onload = function () {
             showScreenSharingButton: true,
             showTextChat: true,
             showUserList: true,
-            maxUsers: 20,
+            maxUsers: 50,
             layout: "Auto",
             showLayoutButton: false,
         });
