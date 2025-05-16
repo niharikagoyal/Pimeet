@@ -15,14 +15,13 @@ window.onload = function () {
 
     const params = getUrlParams(window.location.href);
 
-    // 2. Get or Generate Meeting ID (Numeric)
-    let meetingID = params.meetingID;
-
+    // 2. Get Meeting ID from the URL path
+    let meetingID = window.location.pathname.split('/').pop();
     if (!meetingID) {
-        // Generate a random numeric meetingID
-        meetingID = Math.floor(Math.random() * 1000000).toString(); // Random number between 0 and 999999
-        const newURL = `${window.location.pathname}?meetingID=${meetingID}`;
-        window.history.replaceState({}, '', newURL); // update URL without reloading
+        console.error('No meeting ID found');
+        alert('Invalid meeting URL');
+        window.location.href = '/';
+        return;
     }
 
     // 3. Generate random user info

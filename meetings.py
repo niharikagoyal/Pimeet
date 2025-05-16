@@ -245,17 +245,24 @@ def update_meet():
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Debugging: print out the query and parameters
-        print(f"Updating meeting with meet_id={meet_id}, title={title}, date={date}, time={time}")
+        # First check if a meeting with this meet_id already exists
+        cursor.execute('SELECT id FROM meetings WHERE meet_id = ?', (meet_id,))
+        existing_meeting = cursor.fetchone()
 
+        if existing_meeting:
+            # If meeting already exists, don't create a duplicate
+            conn.close()
+            return jsonify({'status': 'success', 'message': 'Meeting already exists'})
+
+        # Update the meeting only if it doesn't exist and meet_id is NULL
         cursor.execute('''
             UPDATE meetings
             SET meet_id = ?
             WHERE title = ? AND date = ? AND time = ? AND meet_id IS NULL
         ''', (meet_id, title, date, time))
 
-        # Debugging: check how many rows were affected
         if cursor.rowcount == 0:
+            conn.close()
             return jsonify({'status': 'error', 'message': 'No matching meeting found or already updated'}), 404
 
         conn.commit()
