@@ -16,21 +16,21 @@
         <a href="{{ url_for('admin_dashboard') }}" style="text-decoration: none;">
             <button>
                 <i class="bi bi-arrow-left"></i>
-                Back to Admin Dashboard
+               
             </button>
         </a>
         {% elif session.get('user_type') == 'trainer' %}
         <a href="{{ url_for('trainer_dashboard') }}" style="text-decoration: none;">
             <button>
                 <i class="bi bi-arrow-left"></i>
-                Back to Trainer Dashboard
+             
             </button>
         </a>
         {% else %}
         <a href="{{ url_for('user_dashboard') }}" style="text-decoration: none;">
             <button>
                 <i class="bi bi-arrow-left"></i>
-                Back to User Dashboard
+                
             </button>
         </a>
         {% endif %}

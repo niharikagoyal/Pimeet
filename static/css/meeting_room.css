@@ -182,12 +182,12 @@ transform: scale(1.02);
 .back-to-dashboard {
 position: fixed;
 bottom: 2rem;
-left: 2rem;
+left: 1rem;
 z-index: 1000;
 }
 
 .back-to-dashboard button {
-padding: 1rem 2rem;
+padding: 1rem 1rem;
 background: var(--accent);
 color: var(--light);
 border: none;
