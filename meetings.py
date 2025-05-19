@@ -37,7 +37,7 @@ def get_meet():
             # Convert meeting time to datetime object with India timezone
             meeting_dt_naive = datetime.strptime(f"{row['date']} {row['time']}", "%Y-%m-%d %H:%M")
             meeting_dt = india_tz.localize(meeting_dt_naive)
-            end_time = meeting_dt + timedelta(hours=1)
+            end_time = meeting_dt + timedelta(hours=2)
 
             item = {
                 'id': row['meeting_id'],
@@ -189,6 +189,7 @@ def reschedule_meet():
         flash("Failed to reschedule. Please try again.", "danger")
 
     return redirect(url_for('trainer_dashboard'))
+
 def start_meet(meeting_id):
     
     if 'email' not in session:

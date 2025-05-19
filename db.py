@@ -32,6 +32,8 @@ CREATE TABLE IF NOT EXISTS trainers (
             FOREIGN KEY (trainer_id) REFERENCES trainers(id)
         )
     ''')
+
+    
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS students (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
