@@ -29,8 +29,8 @@ window.onload = function () {
     const userName = "Guest" + userID; // or use a prompt to ask for name
 
     // 4. App credentials (Zego)
-    const appID = 809148019;
-    const serverSecret = "c528667fff6e222d5d7011a2063ca651";
+    const appID = 557328064;
+    const serverSecret = "f985fa5a376c97151760d13d7d0a237e";
     let kitToken;
 
     try {

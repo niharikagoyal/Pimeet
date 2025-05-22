@@ -107,7 +107,7 @@ def create_meet():
         return jsonify({'error': 'Failed to create meeting'}), 500
 
 
-    return jsonify({'success': True})
+    return jsonify({'success': True})  
 def edit_meeting_ad():
     data = request.form
     meeting_id = data.get('id')
