@@ -1,7 +1,7 @@
-🌐 Pimeet — Smart Meeting Management Made Simple
+## 🌐 Pimeet — Smart Meeting Management Made Simple
 Pimeet is a user-friendly, web-based meeting management system built with Flask. It empowers users, trainers, and administrators to easily schedule, manage, and oversee meetings — all from a single platform. With features like trainer assignment, profile image uploads, and role-based dashboards, Pimeet simplifies coordination and boosts productivity.
 
-🚀 Key Features
+## 🚀 Key Features
 🔐 User Authentication
 Secure login/logout for users, trainers, and admins.
 
@@ -30,7 +30,7 @@ Access meeting rooms directly from the dashboard
 🖼️ Profile Management
 Upload and fetch profile images
 
-🗂️ Project Structure
+## 🗂️ Project Structure
 csharp
 Copy
 Edit
@@ -49,7 +49,8 @@ Edit
 ├── static/             # Static files (CSS, JS)
 ├── templates/          # HTML templates
 └── README.md           # Project documentation
-🧪 Installation & Setup
+
+## 🧪 Installation & Setup
 Clone the Repository
 
 bash
@@ -86,24 +87,24 @@ Access the App
 Open your browser and navigate to:
 http://127.0.0.1:5000
 
-👥 User Roles & Usage
+## 👥 User Roles & Usage
 Admin: Manage all trainers and meetings via the dashboard
 
 Trainer: View and update assigned meetings
 
 User: Check upcoming meetings, upload profile images
 
-📦 Dependencies
+## 📦 Dependencies
 Flask
 
 SQLite
 
 Other dependencies listed in requirements.txt
 
-📄 License
+## 📄 License
 Licensed under the MIT License. See the LICENSE file for more info.
 
-🤝 Contributing
+## 🤝 Contributing
 Contributions are welcome!
 Fork the repo, make your changes, and submit a pull request. Let's build something great together!
 
