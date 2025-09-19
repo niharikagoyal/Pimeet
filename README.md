@@ -53,23 +53,17 @@ Edit
 ## 🧪 Installation & Setup
 Clone the Repository
 
-bash
-Copy
-Edit
+
 git clone https://github.com/niharikagoyal/Pimeet.git
 cd Pimeet
 Create a Virtual Environment & Activate It
 
-bash
-Copy
-Edit
+
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 Install Dependencies
 
-bash
-Copy
-Edit
+
 pip install -r requirements.txt
 Set Up the Database
 
@@ -79,9 +73,6 @@ Or initialize it using init_db() in db.py
 
 Run the Application
 
-bash
-Copy
-Edit
 python app.py
 Access the App
 Open your browser and navigate to:
